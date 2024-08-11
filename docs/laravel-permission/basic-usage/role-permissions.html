@@ -1,0 +1,1088 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no viewport-fit=cover" />
+  <title>Introduction | laravel-permission | Spatie</title>
+  <meta name="description" content="laravel-permission" />
+  <meta property="og:title" content="Introduction | laravel-permission" />
+  <meta property="og:description" content="laravel-permission" />
+  <meta property="og:url" content="/" />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="role-permissions.html" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../../../assets/images/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/images/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../../../assets/images/favicon-16x16.png" />
+  <link rel="manifest" href="../../../assets/manifest.json" />
+  <link rel="mask-icon" href="../../../assets/images/safari-pinned-tab.svg" color="#007593" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="alternate" type="application/atom+xml" href="../../../assets/feed" title="All blogposts of the Spatie team" />
+  <link rel="preload" as="style" href="../../../assets/css/app-D7wo95Zp.css" />
+  <link rel="preload" as="style" href="../../../assets/css/app-custom.css" />
+  <link rel="modulepreload" href="../../../assets/js/app-BejcjySE.js" />
+  <link rel="modulepreload" href="../../../assets/js/_commonjsHelpers-Cpj98o6Y.js" />
+  <link rel="stylesheet" href="../../../assets/css/app-D7wo95Zp.css" data-navigate-track="reload" />
+  <script type="module" src="../../../assets/js/app-BejcjySE.js" data-navigate-track="reload"></script>
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-WGCBMG");
+  </script>
+  <link rel="stylesheet" href="../../../assets/simplemde/latest/simplemde.min.css" />
+  <script src="../../../assets/simplemde/latest/simplemde.min.js"></script>
+  
+</head>
+
+<body
+  class="flex flex-col min-h-screen leading-normal bg-oss-gray font-pt antialiased font-medium text-oss-royal-blue leading-[1.4]">
+
+  <div class="px-3 sm:px-12 font-pt antialiased font-medium"></div>
+    <header x-data="{ open: window.innerWidth >= 720 }" x-on:click.outside="() => {
+              if (window.innerWidth >= 720) return;
+              open = false
+          }" x-on:resize.window="open = window.innerWidth >= 720"
+    class="w-full max-w-screen-xl mx-auto p-5 sm:px-[40px] sm:py-[30px] sm:flex z-10 my-5 rounded | bg-white shadow-light | print:bg-transparent print:shadow-none">
+
+      <div class="flex justify-between leading-loose | sm:leading-none sm:block">
+        <a class="shrink-0 logo h-8 w-20 block | sm:mb-0 sm:w-48" href="../../../index.html" title="Home">
+          <span class="absolute h-8 sm:h-14">
+            <svg class="w-auto h-full" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 595.28 255.12">
+              <defs>
+                <style>
+                  .fill-current text-blue {
+                    fill: #197593;
+                  }
+
+                  .fill-current text-white {
+                    fill: #ffffff;
+                  }
+                </style>
+              </defs>
+              <title>SPATIE</title>
+              <g>
+                <path class="fill-current text-blue"
+                  d="M0,9.77A10,10,0,0,1,10.26,0H585a10,10,0,0,1,10.28,9.77V245.36A10,10,0,0,1,585,255.12H10.26A10,10,0,0,1,0,245.36V9.77Z">
+                </path>
+              </g>
+              <g>
+                <path
+                  d="M95.6,156.66l10.87-14.84c6.46,5.32,13.82,8.95,21.52,8.95,5.44,0,8.27-2.38,8.27-5.78v-0.11c0-3.17-2.38-5.1-11.67-8.38-14.95-5.1-25.48-10.53-25.48-24.92v-0.34c0-14.38,11-24.46,28.31-24.46,10.65,0,20,2.94,28.31,9.63l-10.31,15.17c-5.44-4.19-12-7.25-18.46-7.25-4.64,0-7.25,2.27-7.25,5.21v0.11c0,3.51,2.49,5.32,12.57,9.06,15.06,4.87,24.46,11,24.46,24.46v0.23c0,15.4-11.89,24.92-28.88,24.92A48.26,48.26,0,0,1,95.6,156.66Z"
+                  class="fill-current text-white"></path>
+                <path
+                  d="M175.67,87.92H204c18.69,0,30.92,9.74,30.92,27.52v0.45c0,19-13.82,28.09-31.14,28.31h-7.81v23H175.67V87.92Zm27.41,39.64c7.13,0,11.44-4.19,11.44-10.87v-0.34c0-7.25-4.19-11-11.55-11h-7v22.2h7.13Z"
+                  class="fill-current text-white"></path>
+                <path
+                  d="M267.17,87.47h20.61l28,79.73h-21.4l-4.64-14.27H264.8l-4.53,14.27h-21Zm17.44,49.15-7.36-23.22-7.36,23.22h14.72Z"
+                  class="fill-current text-white"></path>
+                <path d="M338.64,106.27H319V87.92h59.57v18.35H359V167.2H338.64V106.27Z" class="fill-current text-white">
+                </path>
+                <path d="M396.17,87.92h20.39V167.2H396.17V87.92Z" class="fill-current text-white"></path>
+                <path d="M444.64,87.92h54.59v17.89H464.8v13h31v16.88h-31V149.3h34.88V167.2h-55V87.92Z"
+                  class="fill-current text-white"></path>
+              </g>
+            </svg>
+          </span>
+        </a>
+      </div>
+
+      <div x-show.important="open" x-cloak="" x-transition=""
+        class="mt-4 sm:mt-0 sm:h-14 grid items-start gap-x-8 | sm:gap-y-4 sm:justify-end sm:justify-items-end sm:ml-auto">
+        <hr class="h-px bg-oss-gray sm:hidden -mx-5 mb-5" />
+        <nav class="flex | sm:row-start-2 mb-5 sm:mb-0 text-oss-royal-blue">
+          <ul class="grid sm:grid-flow-col gap-3 sm:gap-4 md:gap-6 sm:justify-between md:text-lg | print:hidden">
+            <li><a href="https://spatie.be/products" target="_blank">Products</a></li>
+            <li><a href="https://spatie.be/open-source" target="_blank">Open Source</a></li>
+            <li><a href="https://spatie.be/courses" target="_blank">Courses</a></li>
+            <li>
+              <a href="https://spatie.be/web-development" target="_blank">Web Development</a>
+            </li>
+          </ul>
+        </nav>
+        <nav
+          class="grid text-base | sm:opacity-75 sm:row-start-1 sm:grid-flow-col sm:items-center gap-4 sm:text-sm | print:hidden">
+          <a href="https://spatie.be/vacancies" target="_blank"
+            class="first:-m-1 first:p-1 rounded-sm text-oss-royal-blue-light sm:text-oss-royal-blue">Vacancies</a><a
+            href="https://spatie.be/about-us" target="_blank"
+            class="first:-m-1 first:p-1 rounded-sm text-oss-royal-blue-light sm:text-oss-royal-blue">About</a><a
+            href="https://spatie.be/blog" target="_blank"
+            class="first:-m-1 first:p-1 rounded-sm text-oss-royal-blue-light sm:text-oss-royal-blue">Blog</a><a
+            href="https://spatie.be/docs" target="_blank"
+            class="first:-m-1 first:p-1 rounded-sm text-oss-royal-blue-light sm:text-oss-royal-blue font-bold">Docs</a><a
+            href="https://spatie.be/guidelines" target="_blank"
+            class="first:-m-1 first:p-1 rounded-sm text-oss-royal-blue-light sm:text-oss-royal-blue">Guidelines</a><a
+            href="https://spatie.be/login" target="_blank">
+            <span class="icon fill-current text-oss-royal-blue" title="Log in">
+              <span class="mr-2 md:hidden">Log in</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512">
+                <path
+                  d="M313.6 304c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 304 0 364.2 0 438.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-25.6c0-74.2-60.2-134.4-134.4-134.4zM400 464H48v-25.6c0-47.6 38.8-86.4 86.4-86.4 14.6 0 38.3 16 89.6 16 51.7 0 74.9-16 89.6-16 47.6 0 86.4 38.8 86.4 86.4V464zM224 288c79.5 0 144-64.5 144-144S303.5 0 224 0 80 64.5 80 144s64.5 144 144 144zm0-240c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z">
+                </path>
+              </svg>
+            </span>
+          </a>
+        </nav>
+      </div>
+    </header>
+  </div>
+
+
+  <div class="flex-grow" role="main">
+    <div class="px-3 sm:px-12">
+
+      <section id="breadcrumb" class="hidden md:block max-w-screen-xl mx-auto w-full text-[14px]">
+        <p class="text-oss-royal-blue">
+          Docs
+          <span class="icon mx-2 fill-current text-oss-royal-blue-light">
+            <svg xmlns="http://www.w3.org/2000/svg"
+              viewbox="0 0 192 512">
+              <path
+                d="M187.8 264.5L41 412.5c-4.7 4.7-12.3 4.7-17 0L4.2 392.7c-4.7-4.7-4.7-12.3 0-17L122.7 256 4.2 136.3c-4.7-4.7-4.7-12.3 0-17L24 99.5c4.7-4.7 12.3-4.7 17 0l146.8 148c4.7 4.7 4.7 12.3 0 17z">
+              </path>
+            </svg>
+          </span>
+          Laravel-permission
+          <span class="icon mx-2 fill-current text-oss-royal-blue-light">
+            <svg xmlns="http://www.w3.org/2000/svg"
+              viewbox="0 0 192 512">
+              <path
+                d="M187.8 264.5L41 412.5c-4.7 4.7-12.3 4.7-17 0L4.2 392.7c-4.7-4.7-4.7-12.3 0-17L122.7 256 4.2 136.3c-4.7-4.7-4.7-12.3 0-17L24 99.5c4.7-4.7 12.3-4.7 17 0l146.8 148c4.7 4.7 4.7 12.3 0 17z">
+              </path>
+            </svg>
+          </span>
+          <span>Basic-usage</span>
+          <span class="icon mx-2 fill-current text-oss-royal-blue-light">
+            <svg xmlns="http://www.w3.org/2000/svg"
+              viewbox="0 0 192 512">
+              <path
+                d="M187.8 264.5L41 412.5c-4.7 4.7-12.3 4.7-17 0L4.2 392.7c-4.7-4.7-4.7-12.3 0-17L122.7 256 4.2 136.3c-4.7-4.7-4.7-12.3 0-17L24 99.5c4.7-4.7 12.3-4.7 17 0l146.8 148c4.7 4.7 4.7 12.3 0 17z">
+              </path>
+            </svg>
+          </span>
+          <span>Using Permissions via Roles</span>
+        </p>
+      </section>
+
+      <section class="mt-10 max-w-screen-xl mx-auto w-full md:grid pb-24 gap-16 md:grid-cols-10 items-stretch">
+        <div class="z-10 | md:col-span-3 | lg:col-span-2 | print:hidden">
+          <nav class="h-full">
+            <div class="flex w-full items-center gap-5 text-[14px] mb-10">
+              <label for="alias" class="text-oss-royal-blue-light">Version</label>
+              <div class="w-full leading-normal select bg-transparent p-0 border rounded border-oss-gray-medium">
+                <select id="alias"
+                  class="text-oss-royal-blue w-full font-medium rounded-[4px] px-5 py-2.5 border-oss-gray-medium outline-none font-pt"
+                  name="alias" onchange="location='/docs/laravel-permission/' + this.options[this.selectedIndex].value">
+                  <option value="v6" selected='"selected"'>v6</option>
+                </select>
+                <span class="select-arrow mr-4">
+                  <svg class="w-2.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 10 7">
+                    <path fill="#050508"
+                      d="m5 6.61.471-.47 4-4 .473-.473L9 .723l-.47.47L5 4.724 1.471 1.196l-.47-.473-.944.944.47.47 4 4L5 6.61Z">
+                    </path>
+                  </svg>
+                </span>
+              </div>
+            </div>
+
+            <ol class="text-[14px] grid gap-2">
+              <ul class="space-y-2 mb-8">
+                <li class="leading-snug">
+                  <a href="../../../index.html" class="">
+                    Introduction
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../support-us.html"
+                    class="">
+                    Support us
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../prerequisites.html"
+                    class="">
+                    Prerequisites
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../installation-laravel.html"
+                    class="">
+                    Installation in Laravel
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../installation-lumen.html"
+                    class="">
+                    Installation in Lumen
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../upgrading.html"
+                    class="">
+                    Upgrading
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../questions-issues.html"
+                    class="">
+                    Questions and issues
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../changelog.html"
+                    class="">
+                    Changelog
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../about-us.html"
+                    class="">
+                    About us
+                  </a>
+                </li>
+              </ul>
+              <h2 class="text-base font-bold mb-2">Basic Usage</h2>
+
+              <ul class="space-y-2 mb-8">
+                <li class="leading-snug">
+                  <a href="basic-usage.html"
+                    class="">
+                    Basic Usage
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="direct-permissions.html"
+                    class="">
+                    Direct Permissions
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="role-permissions.html"
+                    class="font-bold text-blue">
+                    Using Permissions via Roles
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="enums.html"
+                    class="">
+                    Enums
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="teams-permissions.html"
+                    class="">
+                    Teams permissions
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a
+                    href="wildcard-permissions.html"
+                    class="">
+                    Wildcard permissions
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="blade-directives.html"
+                    class="">
+                    Blade directives
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="super-admin.html"
+                    class="">
+                    Defining a Super-Admin
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="multiple-guards.html"
+                    class="">
+                    Using multiple guards
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="artisan.html"
+                    class="">
+                    Artisan Commands
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="middleware.html"
+                    class="">
+                    Middleware
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="passport.html"
+                    class="">
+                    Passport Client Credentials Grant usage
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="new-app.html"
+                    class="">
+                    Example App
+                  </a>
+                </li>
+              </ul>
+              <h2 class="text-base font-bold mb-2">Best Practices</h2>
+
+              <ul class="space-y-2 mb-8">
+                <li class="leading-snug">
+                  <a
+                    href="../best-practices/roles-vs-permissions.html"
+                    class="">
+                    Roles vs Permissions
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../best-practices/using-policies.html"
+                    class="">
+                    Model Policies
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../best-practices/performance.html"
+                    class="">
+                    Performance Tips
+                  </a>
+                </li>
+              </ul>
+              <h2 class="text-base font-bold mb-2">Advanced usage</h2>
+
+              <ul class="space-y-2 mb-8">
+                <li class="leading-snug">
+                  <a href="../advanced-usage/testing.html"
+                    class="">
+                    Testing
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../advanced-usage/seeding.html"
+                    class="">
+                    Database Seeding
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../advanced-usage/exceptions.html"
+                    class="">
+                    Exceptions
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../advanced-usage/extending.html"
+                    class="">
+                    Extending
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../advanced-usage/cache.html"
+                    class="">
+                    Cache
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a
+                    href="../advanced-usage/custom-permission-check.html"
+                    class="">
+                    Custom Permission Check
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../advanced-usage/uuid.html"
+                    class="">
+                    UUID/ULID
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../advanced-usage/phpstorm.html"
+                    class="">
+                    PhpStorm Interaction
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../advanced-usage/other.html"
+                    class="">
+                    Other
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../advanced-usage/timestamps.html"
+                    class="">
+                    Timestamps
+                  </a>
+                </li>
+                <li class="leading-snug">
+                  <a href="../advanced-usage/ui-options.html"
+                    class="">
+                    UI Options
+                  </a>
+                </li>
+              </ul>
+            </ol>
+
+          </nav>
+        </div>
+
+        <article class="md:col-span-7 lg:col-span-6">
+            <h1 class="text-[36px] font-bold mb-6 leading-none">Using Permissions via Roles</h1>
+            <div class="lg:hidden p-6 bg-blue-lightest rounded-sm bg-opacity-25 mb-8">
+            <h3 class="mb-2 text-gray font-semibold uppercase tracking-wider text-xs">
+            On this page
+            </h3>
+            <ol class="grid gap-1">
+                                      <li class="text-sm">
+              <a href="#content-assigning-roles">
+                  Assigning Roles
+              </a>
+            </li>
+                                      <li class="text-sm">
+              <a href="#content-checking-roles">
+                  Checking Roles
+              </a>
+            </li>
+                                      <li class="text-sm">
+              <a href="#content-assigning-permissions-to-roles">
+                  Assigning Permissions to Roles
+              </a>
+            </li>
+                                      <li class="text-sm">
+              <a href="#content-what-permissions-does-a-role-have">
+                  What Permissions Does A Role Have?
+              </a>
+            </li>
+                                      <li class="text-sm">
+              <a href="#content-assigning-direct-permissions-to-a-user">
+                  Assigning Direct Permissions To A User
+              </a>
+            </li>
+                              </ol>
+            </div>
+        
+            <div id="site-search-docs-content">
+            <div class="markup markup-titles markup-lists markup-tables markup-embeds markup-code
+            links-blue links-underline docs-markup">
+            <h2 id="a-idcontent-assigning-roles-1-hrefcontent-assigning-roles-1-classanchor-link-aria-hiddentrue-titlepermalinkaa-idcontent-assigning-roles-hrefcontent-assigning-roles-classanchor-link-aria-hiddentrue-titlepermalinkaassigning-roles"><a id="content-assigning-roles-1" href="#content-assigning-roles-1" class="anchor-link" aria-hidden="true" title="Permalink">#</a><a id="content-assigning-roles" href="#content-assigning-roles" class="anchor-link" aria-hidden="true" title="Permalink">#</a>Assigning Roles</h2>
+            <p>A role can be assigned to any user:</p>
+            <pre translate="no" data-lang="php"><span class="hl-variable">$user</span>-&gt;<span class="hl-property">assignRole</span>('<span class="hl-value">writer</span>');
+        
+            <span class="hl-comment">// You can also assign multiple roles at once</span>
+            <span class="hl-variable">$user</span>-&gt;<span class="hl-property">assignRole</span>('<span class="hl-value">writer</span>', '<span class="hl-value">admin</span>');
+            <span class="hl-comment">// or as an array</span>
+            <span class="hl-variable">$user</span>-&gt;<span class="hl-property">assignRole</span>(['<span class="hl-value">writer</span>', '<span class="hl-value">admin</span>']);
+            </pre>
+            <p>A role can be removed from a user:</p>
+            <pre translate="no" data-lang="php"><span class="hl-variable">$user</span>-&gt;<span class="hl-property">removeRole</span>('<span class="hl-value">writer</span>');
+            </pre>
+            <p>Roles can also be synced:</p>
+            <pre translate="no" data-lang="php"><span class="hl-comment">// All current roles will be removed from the user and replaced by the array given</span>
+            <span class="hl-variable">$user</span>-&gt;<span class="hl-property">syncRoles</span>(['<span class="hl-value">writer</span>', '<span class="hl-value">admin</span>']);
+            </pre>
+            <h2 id="a-idcontent-checking-roles-1-hrefcontent-checking-roles-1-classanchor-link-aria-hiddentrue-titlepermalinkaa-idcontent-checking-roles-hrefcontent-checking-roles-classanchor-link-aria-hiddentrue-titlepermalinkachecking-roles"><a id="content-checking-roles-1" href="#content-checking-roles-1" class="anchor-link" aria-hidden="true" title="Permalink">#</a><a id="content-checking-roles" href="#content-checking-roles" class="anchor-link" aria-hidden="true" title="Permalink">#</a>Checking Roles</h2>
+            <p>You can determine if a user has a certain role:</p>
+            <pre translate="no" data-lang="php"><span class="hl-variable">$user</span>-&gt;<span class="hl-property">hasRole</span>('<span class="hl-value">writer</span>');
+        
+            <span class="hl-comment">// or at least one role from an array of roles:</span>
+            <span class="hl-variable">$user</span>-&gt;<span class="hl-property">hasRole</span>(['<span class="hl-value">editor</span>', '<span class="hl-value">moderator</span>']);
+            </pre>
+            <p>You can also determine if a user has any of a given list of roles:</p>
+            <pre translate="no" data-lang="php"><span class="hl-variable">$user</span>-&gt;<span class="hl-property">hasAnyRole</span>(['<span class="hl-value">writer</span>', '<span class="hl-value">reader</span>']);
+            <span class="hl-comment">// or</span>
+            <span class="hl-variable">$user</span>-&gt;<span class="hl-property">hasAnyRole</span>('<span class="hl-value">writer</span>', '<span class="hl-value">reader</span>');
+            </pre>
+            <p>You can also determine if a user has all of a given list of roles:</p>
+            <pre translate="no" data-lang="php"><span class="hl-variable">$user</span>-&gt;<span class="hl-property">hasAllRoles</span>(<span class="hl-type">Role</span>::<span class="hl-property">all</span>());
+            </pre>
+            <p>You can also determine if a user has exactly all of a given list of roles:</p>
+            <pre translate="no" data-lang="php"><span class="hl-variable">$user</span>-&gt;<span class="hl-property">hasExactRoles</span>(<span class="hl-type">Role</span>::<span class="hl-property">all</span>());
+            </pre>
+            <p>The <code>assignRole</code>, <code>hasRole</code>, <code>hasAnyRole</code>, <code>hasAllRoles</code>, <code>hasExactRoles</code>  and <code>removeRole</code> functions can accept a
+            string, a <code>\Spatie\Permission\Models\Role</code> object or an <code>\Illuminate\Support\Collection</code> object.</p>
+            <h2 id="a-idcontent-assigning-permissions-to-roles-1-hrefcontent-assigning-permissions-to-roles-1-classanchor-link-aria-hiddentrue-titlepermalinkaa-idcontent-assigning-permissions-to-roles-hrefcontent-assigning-permissions-to-roles-classanchor-link-aria-hiddentrue-titlepermalinkaassigning-permissions-to-roles"><a id="content-assigning-permissions-to-roles-1" href="#content-assigning-permissions-to-roles-1" class="anchor-link" aria-hidden="true" title="Permalink">#</a><a id="content-assigning-permissions-to-roles" href="#content-assigning-permissions-to-roles" class="anchor-link" aria-hidden="true" title="Permalink">#</a>Assigning Permissions to Roles</h2>
+            <p>A permission can be given to a role:</p>
+            <pre translate="no" data-lang="php"><span class="hl-variable">$role</span>-&gt;<span class="hl-property">givePermissionTo</span>('<span class="hl-value">edit articles</span>');
+            </pre>
+            <p>You can determine if a role has a certain permission:</p>
+            <pre translate="no" data-lang="php"><span class="hl-variable">$role</span>-&gt;<span class="hl-property">hasPermissionTo</span>('<span class="hl-value">edit articles</span>');
+            </pre>
+            <p>A permission can be revoked from a role:</p>
+            <pre translate="no" data-lang="php"><span class="hl-variable">$role</span>-&gt;<span class="hl-property">revokePermissionTo</span>('<span class="hl-value">edit articles</span>');
+            </pre>
+            <p>Or revoke &amp; add new permissions in one go:</p>
+            <pre translate="no" data-lang="php"><span class="hl-variable">$role</span>-&gt;<span class="hl-property">syncPermissions</span>(['<span class="hl-value">edit articles</span>', '<span class="hl-value">delete articles</span>']);
+            </pre>
+            <p>The <code>givePermissionTo</code> and <code>revokePermissionTo</code> functions can accept a
+            string or a <code>Spatie\Permission\Models\Permission</code> object.</p>
+            <p><strong>NOTE: Permissions are inherited from roles automatically.</strong></p>
+            <h2 id="a-idcontent-what-permissions-does-a-role-have-1-hrefcontent-what-permissions-does-a-role-have-1-classanchor-link-aria-hiddentrue-titlepermalinkaa-idcontent-what-permissions-does-a-role-have-hrefcontent-what-permissions-does-a-role-have-classanchor-link-aria-hiddentrue-titlepermalinkawhat-permissions-does-a-role-have"><a id="content-what-permissions-does-a-role-have-1" href="#content-what-permissions-does-a-role-have-1" class="anchor-link" aria-hidden="true" title="Permalink">#</a><a id="content-what-permissions-does-a-role-have" href="#content-what-permissions-does-a-role-have" class="anchor-link" aria-hidden="true" title="Permalink">#</a>What Permissions Does A Role Have?</h2>
+            <p>The <code>permissions</code> property on any given role returns a collection with all the related permission objects. This collection can respond to usual Eloquent Collection operations, such as count, sort, etc.</p>
+            <pre translate="no" data-lang="php"><span class="hl-comment">// get collection</span>
+            <span class="hl-variable">$role</span>-&gt;<span class="hl-property">permissions</span>;
+        
+            <span class="hl-comment">// return only the permission names:</span>
+            <span class="hl-variable">$role</span>-&gt;<span class="hl-property">permissions</span>-&gt;<span class="hl-property">pluck</span>('<span class="hl-value">name</span>');
+        
+            <span class="hl-comment">// count the number of permissions assigned to a role</span>
+            <span class="hl-property">count</span>(<span class="hl-variable">$role</span>-&gt;<span class="hl-property">permissions</span>);
+            <span class="hl-comment">// or</span>
+            <span class="hl-variable">$role</span>-&gt;<span class="hl-property">permissions</span>-&gt;<span class="hl-property">count</span>();
+            </pre>
+            <h2 id="a-idcontent-assigning-direct-permissions-to-a-user-1-hrefcontent-assigning-direct-permissions-to-a-user-1-classanchor-link-aria-hiddentrue-titlepermalinkaa-idcontent-assigning-direct-permissions-to-a-user-hrefcontent-assigning-direct-permissions-to-a-user-classanchor-link-aria-hiddentrue-titlepermalinkaassigning-direct-permissions-to-a-user"><a id="content-assigning-direct-permissions-to-a-user-1" href="#content-assigning-direct-permissions-to-a-user-1" class="anchor-link" aria-hidden="true" title="Permalink">#</a><a id="content-assigning-direct-permissions-to-a-user" href="#content-assigning-direct-permissions-to-a-user" class="anchor-link" aria-hidden="true" title="Permalink">#</a>Assigning Direct Permissions To A User</h2>
+            <p>Additionally, individual permissions can be assigned to the user too.
+            For instance:</p>
+            <pre translate="no" data-lang="php"><span class="hl-variable">$role</span> = <span class="hl-type">Role</span>::<span class="hl-property">findByName</span>('<span class="hl-value">writer</span>');
+            <span class="hl-variable">$role</span>-&gt;<span class="hl-property">givePermissionTo</span>('<span class="hl-value">edit articles</span>');
+        
+            <span class="hl-variable">$user</span>-&gt;<span class="hl-property">assignRole</span>('<span class="hl-value">writer</span>');
+        
+            <span class="hl-variable">$user</span>-&gt;<span class="hl-property">givePermissionTo</span>('<span class="hl-value">delete articles</span>');
+            </pre>
+            <p>In the above example, a role is given permission to edit articles and this role is assigned to a user.
+            Now the user can edit articles and additionally delete articles. The permission of 'delete articles' is the user's direct permission because it is assigned directly to them.
+            When we call <code>$user-&gt;hasDirectPermission('delete articles')</code> it returns <code>true</code>,
+            but <code>false</code> for <code>$user-&gt;hasDirectPermission('edit articles')</code>.</p>
+            <p>This method is useful if one builds a form for setting permissions for roles and users in an application and wants to restrict or change inherited permissions of roles of the user, i.e. allowing to change only direct permissions of the user.</p>
+            <p>You can check if the user has a Specific or All or Any of a set of permissions directly assigned:</p>
+            <pre translate="no" data-lang="php"><span class="hl-comment">// Check if the user has Direct permission</span>
+            <span class="hl-variable">$user</span>-&gt;<span class="hl-property">hasDirectPermission</span>('<span class="hl-value">edit articles</span>')
+        
+            <span class="hl-comment">// Check if the user has All direct permissions</span>
+            <span class="hl-variable">$user</span>-&gt;<span class="hl-property">hasAllDirectPermissions</span>(['<span class="hl-value">edit articles</span>', '<span class="hl-value">delete articles</span>']);
+        
+            <span class="hl-comment">// Check if the user has Any permission directly</span>
+            <span class="hl-variable">$user</span>-&gt;<span class="hl-property">hasAnyDirectPermission</span>(['<span class="hl-value">create articles</span>', '<span class="hl-value">delete articles</span>']);
+            </pre>
+            <p>By following the previous example, when we call <code>$user-&gt;hasAllDirectPermissions(['edit articles', 'delete articles'])</code>
+            it returns <code>false</code>, because the user does not have <code>edit articles</code> as a direct permission.
+            When we call
+            <code>$user-&gt;hasAnyDirectPermission('edit articles')</code>, it returns <code>true</code> because the user has one of the provided permissions.</p>
+            <p>You can examine all of these permissions:</p>
+            <pre translate="no" data-lang="php"><span class="hl-comment">// Direct permissions</span>
+            <span class="hl-variable">$user</span>-&gt;<span class="hl-property">getDirectPermissions</span>() <span class="hl-comment">// Or $user-&gt;permissions;</span>
+        
+            <span class="hl-comment">// Permissions inherited from the user's roles</span>
+            <span class="hl-variable">$user</span>-&gt;<span class="hl-property">getPermissionsViaRoles</span>();
+        
+            <span class="hl-comment">// All permissions which apply on the user (inherited and direct)</span>
+            <span class="hl-variable">$user</span>-&gt;<span class="hl-property">getAllPermissions</span>();
+            </pre>
+            <p>All these responses are collections of <code>Spatie\Permission\Models\Permission</code> objects.</p>
+            <p>If we follow the previous example, the first response will be a collection with the <code>delete article</code> permission and
+            the second will be a collection with the <code>edit article</code> permission and the third will contain both.</p>
+        
+            </div>
+            </div>
+        
+            <div class="border border-gray/25 p-6 rounded-md mt-10 flex justify-between items-center bg-link-card-light">
+            <div class="w-full">
+                              <a class="flex items-center gap-x-2 text-blue hover:underline" href="direct-permissions.html">
+            <svg class="w-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 7 12"><path fill="#197593" d="m.313 5.623.53.53 4.5 4.5.531.532 1.062-1.062-.53-.53-3.97-3.97 3.968-3.97.532-.53L5.874.062l-.53.532-4.5 4.5-.531.53Z"></path></svg>
+            <span class="leading-none mb-px">Direct Permissions</span>
+            </a>
+                      </div>
+            <div class="h-5 w-px bg-oss-gray-dark"></div>
+            <div class="w-full flex justify-end">
+                              <a class="flex items-center gap-x-2 text-blue hover:underline" href="enums.html">
+            <span class="leading-none mb-px">Enums</span>
+            <svg class="w-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 7 12"><path fill="#197593" d="m6.686 5.623-.53.53-4.5 4.5-.532.532-1.062-1.062.53-.53 3.97-3.97-3.967-3.97-.532-.53L1.123.062l.53.53 4.5 4.5.532.531Z"></path></svg>
+            </a>
+                      </div>
+            </div>
+            <a href="https://github.com/spatie/laravel-permission/blob/main/docs/basic-usage/role-permissions.md" target="_blank" class="ml-auto inline-flex items-center gap-3 mt-10 hover:underline lg:hidden">
+            <span class="w-5 h-5">
+            <svg class="w-full h-full fill-current" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewbox="0 0 32 32">
+            <path d="M16,0C7.16,0,0,7.34,0,16.41c0,7.25,4.58,13.4,10.94,15.57c0.8,0.15,1.09-0.36,1.09-0.79
+            c0-0.39-0.01-1.42-0.02-2.79c-4.45,0.99-5.39-2.2-5.39-2.2c-0.73-1.9-1.78-2.4-1.78-2.4c-1.45-1.02,0.11-1,0.11-1
+            c1.61,0.12,2.45,1.69,2.45,1.69c1.43,2.51,3.74,1.78,4.66,1.36c0.15-1.06,0.56-1.78,1.02-2.19c-3.55-0.41-7.29-1.82-7.29-8.11
+            c0-1.79,0.62-3.26,1.65-4.4C7.27,10.73,6.72,9.06,7.6,6.8c0,0,1.34-0.44,4.4,1.68c1.28-0.36,2.64-0.55,4.01-0.55
+            c1.36,0.01,2.73,0.19,4.01,0.55c3.05-2.12,4.4-1.68,4.4-1.68c0.87,2.26,0.32,3.93,0.16,4.34c1.03,1.15,1.64,2.61,1.64,4.4
+            c0,6.3-3.74,7.69-7.31,8.1c0.57,0.51,1.09,1.51,1.09,3.04c0,2.19-0.02,3.96-0.02,4.5c0,0.44,0.29,0.95,1.1,0.79
+            C27.42,29.8,32,23.65,32,16.41C32,7.34,24.84,0,16,0z"></path>
+            </svg>
+        
+            </span>
+            <span>
+            Help us improve this page
+            </span>
+            </a>
+        </article>
+        
+        <aside class="hidden lg:block w-full pb-16 col-span-2 print-hidden">
+          <div class="sticky top-[1rem]">
+                    <h3 class="text-base font-bold mb-2">
+          On this page
+          </h3>
+          <ul class="grid gap-2 mb-10">
+                                    <li class="text-sm">
+            <a href="#content-assigning-roles" class="docs-submenu-item">
+                Assigning Roles
+            </a>
+          </li>
+                                    <li class="text-sm">
+            <a href="#content-checking-roles" class="docs-submenu-item">
+                Checking Roles
+            </a>
+          </li>
+                                    <li class="text-sm">
+            <a href="#content-assigning-permissions-to-roles" class="docs-submenu-item">
+                Assigning Permissions to Roles
+            </a>
+          </li>
+                                    <li class="text-sm">
+            <a href="#content-what-permissions-does-a-role-have" class="docs-submenu-item">
+                What Permissions Does A Role Have?
+            </a>
+          </li>
+                                    <li class="text-sm">
+            <a href="#content-assigning-direct-permissions-to-a-user" class="docs-submenu-item">
+                Assigning Direct Permissions To A User
+            </a>
+          </li>
+                            </ul>
+          <aside class="flex w-full">
+          <div class="bg-pink text-white flex flex-col justify-center rounded-lg p-5 gap-3 text-sm">
+          <div class="text-lg icon bg-white text-pink rounded-full w-8 flex items-center justify-center h-8">
+          <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 640 512"><path d="M606.72 147.91l-258-79.57c-18.81-5.78-38.62-5.78-57.44 0l-258 79.57C13.38 154.05 0 171.77 0 192.02s13.38 37.97 33.28 44.11l22.64 6.98c-2.46 5.19-4.4 10.62-5.7 16.31C39.53 264.6 32 275.33 32 288.01c0 10.78 5.68 19.85 13.86 25.65L20.33 428.53C18.11 438.52 25.71 448 35.95 448h56.11c10.24 0 17.84-9.48 15.62-19.47L82.14 313.66c8.17-5.8 13.86-14.87 13.86-25.65 0-10.6-5.49-19.54-13.43-25.36 1.13-3.55 2.96-6.67 4.85-9.83l54.87 16.92L128 384c0 35.34 85.96 64 192 64s192-28.65 192-64l-14.28-114.26 109-33.62c19.91-6.14 33.28-23.86 33.28-44.11s-13.38-37.96-33.28-44.1zM462.44 374.47c-59.7 34.2-225.9 33.78-284.87 0l11.3-90.36 102.42 31.59c11.15 3.43 32.24 7.77 57.44 0l102.42-31.59 11.29 90.36zM334.59 269.82c-9.44 2.91-19.75 2.91-29.19 0L154.62 223.3l168.31-31.56c8.69-1.62 14.41-9.98 12.78-18.67-1.62-8.72-10.09-14.36-18.66-12.76l-203.78 38.2c-6.64 1.24-12.8 3.54-18.71 6.27L53.19 192l252.22-77.79c9.44-2.91 19.75-2.91 29.19 0l252.22 77.82-252.23 77.79z"></path></svg>
+          </div>
+          <div class="font-bold">
+          Testing Laravel
+          </div>
+          <p>Learn how to write quality tests in Pest and PHPUnit in our video course</p>
+          <a href="https://testing-laravel.com?ref=spatie-docs" target="_blank" class="mt-2">
+          <button type="button" class="px-4 py-2.5 rounded text-oss-royal-blue bg-white cursor-pointer">
+          Learn&nbsp;more
+          </button>
+          </a>
+          </div>
+          </aside>
+        
+          <a href="https://github.com/spatie/laravel-permission/blob/main/docs/basic-usage/role-permissions.md" target="_blank" class="text-sm inline-flex items-center gap-3 mt-10 hover:underline">
+          <span class="w-5 h-5">
+          <svg class="w-full h-full fill-current" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewbox="0 0 32 32">
+          <path d="M16,0C7.16,0,0,7.34,0,16.41c0,7.25,4.58,13.4,10.94,15.57c0.8,0.15,1.09-0.36,1.09-0.79
+          c0-0.39-0.01-1.42-0.02-2.79c-4.45,0.99-5.39-2.2-5.39-2.2c-0.73-1.9-1.78-2.4-1.78-2.4c-1.45-1.02,0.11-1,0.11-1
+          c1.61,0.12,2.45,1.69,2.45,1.69c1.43,2.51,3.74,1.78,4.66,1.36c0.15-1.06,0.56-1.78,1.02-2.19c-3.55-0.41-7.29-1.82-7.29-8.11
+          c0-1.79,0.62-3.26,1.65-4.4C7.27,10.73,6.72,9.06,7.6,6.8c0,0,1.34-0.44,4.4,1.68c1.28-0.36,2.64-0.55,4.01-0.55
+          c1.36,0.01,2.73,0.19,4.01,0.55c3.05-2.12,4.4-1.68,4.4-1.68c0.87,2.26,0.32,3.93,0.16,4.34c1.03,1.15,1.64,2.61,1.64,4.4
+          c0,6.3-3.74,7.69-7.31,8.1c0.57,0.51,1.09,1.51,1.09,3.04c0,2.19-0.02,3.96-0.02,4.5c0,0.44,0.29,0.95,1.1,0.79
+          C27.42,29.8,32,23.65,32,16.41C32,7.34,24.84,0,16,0z"></path>
+          </svg>
+        
+          </span>
+          <span>
+          Help us improve this page
+          </span>
+          </a>
+          </div>
+        </aside>
+
+      </section>
+    </div>
+
+    <div
+      wire:snapshot='{"data":{"dependencyQueryResults":[[],{"s":"arr"}]},"memo":{"id":"h5GEL2ijOHnnufHSu0WL","name":"spotlight","path":"docs\/laravel-permission\/v6\/introduction","method":"GET","children":[],"scripts":[],"assets":[],"errors":[],"locale":"en"},"checksum":"24fa2c27bb9eab0561d6d12b0076f5961b650a09784363f8ce31eb899ea0f604"}'
+      wire:effects="[]" wire:id="h5GEL2ijOHnnufHSu0WL">
+
+      <script src="../../../assets/js/app-script.js"></script>
+
+      <link rel="stylesheet" href="../../../assets/css/modern-normalize.css">
+
+      <div x-data="LivewireUISpotlight({
+        componentId: 'h5GEL2ijOHnnufHSu0WL',
+        placeholder: 'Which package documentation do you want to see?',
+        commands: JSON.parse('[{\u0022id\u0022:\u0022browsershot\u0022,\u0022name\u0022:\u0022browsershot\u0022,\u0022description\u0022:\u0022General PHP\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022enum\u0022,\u0022name\u0022:\u0022enum\u0022,\u0022description\u0022:\u0022General PHP\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022image\u0022,\u0022name\u0022:\u0022image\u0022,\u0022description\u0022:\u0022General PHP\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-activitylog\u0022,\u0022name\u0022:\u0022laravel-activitylog\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-backup\u0022,\u0022name\u0022:\u0022laravel-backup\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-backup-server\u0022,\u0022name\u0022:\u0022laravel-backup-server\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-blade-x\u0022,\u0022name\u0022:\u0022laravel-blade-x\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-comments\u0022,\u0022name\u0022:\u0022laravel-comments\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-dashboard\u0022,\u0022name\u0022:\u0022laravel-dashboard\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-data\u0022,\u0022name\u0022:\u0022laravel-data\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-dynamic-servers\u0022,\u0022name\u0022:\u0022laravel-dynamic-servers\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-error-solutions\u0022,\u0022name\u0022:\u0022laravel-error-solutions\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-event-sourcing\u0022,\u0022name\u0022:\u0022laravel-event-sourcing\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-health\u0022,\u0022name\u0022:\u0022laravel-health\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-html\u0022,\u0022name\u0022:\u0022laravel-html\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-livewire-wizard\u0022,\u0022name\u0022:\u0022laravel-livewire-wizard\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-markdown\u0022,\u0022name\u0022:\u0022laravel-markdown\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-medialibrary\u0022,\u0022name\u0022:\u0022laravel-medialibrary\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-medialibrary-pro\u0022,\u0022name\u0022:\u0022laravel-medialibrary-pro\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-model-states\u0022,\u0022name\u0022:\u0022laravel-model-states\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-multitenancy\u0022,\u0022name\u0022:\u0022laravel-multitenancy\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-notification-log\u0022,\u0022name\u0022:\u0022laravel-notification-log\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-open-telemetry\u0022,\u0022name\u0022:\u0022laravel-open-telemetry\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-pdf\u0022,\u0022name\u0022:\u0022laravel-pdf\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-permission\u0022,\u0022name\u0022:\u0022laravel-permission\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-prometheus\u0022,\u0022name\u0022:\u0022laravel-prometheus\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-query-builder\u0022,\u0022name\u0022:\u0022laravel-query-builder\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-route-discovery\u0022,\u0022name\u0022:\u0022laravel-route-discovery\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-server-monitor\u0022,\u0022name\u0022:\u0022laravel-server-monitor\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-site-search\u0022,\u0022name\u0022:\u0022laravel-site-search\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-slack-slash-command\u0022,\u0022name\u0022:\u0022laravel-slack-slash-command\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-tags\u0022,\u0022name\u0022:\u0022laravel-tags\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-translatable\u0022,\u0022name\u0022:\u0022laravel-translatable\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022laravel-uptime-monitor\u0022,\u0022name\u0022:\u0022laravel-uptime-monitor\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022lighthouse-php\u0022,\u0022name\u0022:\u0022lighthouse-php\u0022,\u0022description\u0022:\u0022Laravel\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022menu\u0022,\u0022name\u0022:\u0022menu\u0022,\u0022description\u0022:\u0022General PHP\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022typescript-transformer\u0022,\u0022name\u0022:\u0022typescript-transformer\u0022,\u0022description\u0022:\u0022General PHP\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]},{\u0022id\u0022:\u0022wordpress-mailcoach\u0022,\u0022name\u0022:\u0022wordpress-mailcoach\u0022,\u0022description\u0022:\u0022Other\u0022,\u0022synonyms\u0022:[],\u0022dependencies\u0022:[]}]'),
+        showResultsWithoutInput: '1',
+    })" x-init="init()" x-show.important="isOpen" x-cloak="" @keydown.window.prevent.cmd.k="toggleOpen()"
+        @keydown.window.prevent.ctrl.k="toggleOpen()" @keydown.window.escape="isOpen = false"
+        @toggle-spotlight.window="toggleOpen()" @open-spotlight.window="() => {
+            isOpen = true;
+            input = '';
+            setTimeout(() => {
+                $refs.input.focus()
+            }, 100)
+        }" class="fixed z-50 px-4 pt-16 flex items-start justify-center inset-0 sm:pt-24">
+        <div x-show="isOpen" @click="isOpen = false" x-transition:enter="ease-out duration-200"
+          x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+          x-transition:leave="ease-in duration-150" x-transition:leave-start="opacity-100"
+          x-transition:leave-end="opacity-0" class="fixed inset-0 transition-opacity">
+          <div class="absolute inset-0 bg-gray-900 opacity-50"></div>
+        </div>
+
+        <div x-show="isOpen" x-transition:enter="ease-out duration-200" x-transition:enter-start="opacity-0 scale-95"
+          x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-150"
+          x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+          class="relative bg-gray-900 rounded-lg overflow-hidden shadow-xl transform transition-all max-w-lg w-full">
+          <div class="relative">
+            <div class="absolute h-full right-5 flex items-center">
+              <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewbox="0 0 24 24" wire:loading.delay="">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                </path>
+              </svg>
+            </div>
+            <input @keydown.tab.prevent="" @keydown.prevent.stop.enter="go()" @keydown.prevent.arrow-up="selectUp()"
+              @keydown.prevent.arrow-down="selectDown()" x-ref="input" x-model="input" type="text"
+              style="caret-color: #6b7280; border: 0 !important"
+              class="appearance-none w-full bg-transparent px-6 py-4 text-gray-300 text-lg placeholder-gray-500 focus:border-0 focus:border-transparent focus:shadow-none outline-none focus:outline-none"
+              x-bind:placeholder="inputPlaceholder" />
+          </div>
+          <div class="border-t border-gray-800" x-show="filteredItems().length > 0" style="display: none">
+            <ul x-ref="results" style="max-height: 265px" class="overflow-y-auto">
+              <template x-for="(item, i) in filteredItems()" :key="">
+                <li>
+                  <button @click="go(item[0].item.id)" class="block w-full px-6 py-3 text-left"
+                    :class="{ 'bg-gray-700': selected === i, 'hover:bg-gray-800': selected !== i }">
+                    <span x-text="item[0].item.name"
+                      :class="{'text-gray-300': selected !== i, 'text-white': selected === i }"></span>
+                    <span x-text="item[0].item.description" class="ml-1"
+                      :class="{'text-gray-500': selected !== i, 'text-gray-400': selected === i }"></span>
+                  </button>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-white text-oss-royal-blue border-t border-oss-gray | print:bg-transparent">
+    <div class="flex-none pt-16 pb-8 | print:pb-2" role="navigation">
+      <div class="wrap links links-gray text-gray leading-loose | md:leading-normal">
+        <div class="grid grid-cols-2 items-start text-sm | md:flex md:justify-between">
+          <ul class="grid sm:grid-flow-col gap-3 sm:gap-4 md:gap-6 sm:justify-between md:text-lg | print:hidden">
+            <li><a href="https://spatie.be/products" target="_blank">Products</a></li>
+            <li><a href="https://spatie.be/open-source" target="_blank">Open Source</a></li>
+            <li><a href="https://spatie.be/courses" target="_blank">Courses</a></li>
+            <li>
+              <a href="https://spatie.be/web-development" target="_blank">Web Development</a>
+            </li>
+          </ul>
+
+          <div class="grid | md:grid-flow-col ml:items-center md:ml-12 md:gap-12">
+            <a href="https://spatie.be/vacancies" target="_blank"
+              class="first:-m-1 first:p-1 rounded-sm text-oss-royal-blue-light sm:text-oss-royal-blue">Vacancies</a><a
+              href="https://spatie.be/about-us" target="_blank"
+              class="first:-m-1 first:p-1 rounded-sm text-oss-royal-blue-light sm:text-oss-royal-blue">About</a><a
+              href="https://spatie.be/blog" target="_blank"
+              class="first:-m-1 first:p-1 rounded-sm text-oss-royal-blue-light sm:text-oss-royal-blue">Blog</a><a
+              href="https://spatie.be/docs" target="_blank"
+              class="first:-m-1 first:p-1 rounded-sm text-oss-royal-blue-light sm:text-oss-royal-blue font-bold">Docs</a><a
+              href="https://spatie.be/guidelines" target="_blank"
+              class="first:-m-1 first:p-1 rounded-sm text-oss-royal-blue-light sm:text-oss-royal-blue">Guidelines</a><a
+              href="https://spatie.be/login" target="_blank">
+              <span class="icon fill-current text-oss-royal-blue" title="Log in">
+                <span class="mr-2 md:hidden">Log in</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512">
+                  <path
+                    d="M313.6 304c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 304 0 364.2 0 438.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-25.6c0-74.2-60.2-134.4-134.4-134.4zM400 464H48v-25.6c0-47.6 38.8-86.4 86.4-86.4 14.6 0 38.3 16 89.6 16 51.7 0 74.9-16 89.6-16 47.6 0 86.4 38.8 86.4 86.4V464zM224 288c79.5 0 144-64.5 144-144S303.5 0 224 0 80 64.5 80 144s64.5 144 144 144zm0-240c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z">
+                  </path>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+        <hr class="my-8 h-2px text-gray opacity-25 rounded | print:text-black" style="page-break-after: avoid" />
+        <div class="grid gap-4 text-sm | sm:grid-cols-2 sm:gap-8 | md:flex flex-row-reverse justify-between">
+          <address class="grid gap-4 | sm:gap-0 | md:grid-flow-col md:gap-8 md:text-right">
+            <div>
+              <a class="group flex items-end | md:flex-row-reverse" href="https://goo.gl/maps/A2zoLK3nVF9V8jydA"
+                target="_blank" rel="nofollow noreferrer noopener">
+                <span>
+                  Kruikstraat 22, Box 12
+                  <br />
+                  2018 Antwerp, Belgium
+                </span>
+                <span
+                  class="icon mb-px px-1 fill-current text-gray-lighter group-hover:text-pink transition-all transition-100 | print:hidden">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 384 512">
+                    <path
+                      d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z">
+                    </path>
+                  </svg>
+
+                </span>
+              </a>
+            </div>
+            <div>
+              <a href="mailto:info@spatie.be" target="_blank">info@spatie.be</a>
+              <br />
+              <a href="#tel" target="_blank">+32 3 292 56 79</a>
+            </div>
+          </address>
+          <ul class="hidden | md:grid md:grid-flow-col md:gap-6 | print:hidden">
+            <li>
+              <a href="https://github.com/spatie" target="_blank" rel="nofollow noreferrer noopener">
+                GitHub
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/spatie_be" target="_blank" rel="nofollow noreferrer noopener">
+                Instagram
+              </a>
+            </li>
+            <li>
+              <a href="https://be.linkedin.com/company/spatie" rel="me" target="_blank"
+                rel="nofollow noreferrer noopener">
+                LinkedIn
+              </a>
+            </li>
+            <li>
+              <a href="https://twitter.com/spatie_be" target="_blank" rel="nofollow noreferrer noopener">
+                Twitter
+              </a>
+            </li>
+            <li>
+              <a href="https://phpc.social/@spatie" rel="me" target="_blank" rel="nofollow noreferrer noopener">
+                Mastodon
+              </a>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/channel/UCoBbei3S9JLTcS2VeEOWDeQ" target="_blank"
+                rel="nofollow noreferrer noopener">
+                YouTube
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <ul
+        class="grid md:grid-flow-col justify-start links links-gray opacity-50 text-xs py-4 | md:justify-end md:gap-6 | print:hidden">
+        <li><a href="https://spatie.be/privacy" target="_blank">Privacy</a></li>
+        <li><a href="https://spatie.be/disclaimer" target="_blank">Disclaimer</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <div id="tel" class="modal" onclick="history.back()">
+    <div class="m-8 text-center bg-white p-8 z-20 shadow-lg | md:p-16">
+      <a href="tel:+3232925679">
+        <p class="font-sans-bold whitespace-nowrap" style="font-size: 9vw">
+          +32 3 292 56 79
+        </p>
+      </a>
+      <p class="md:absolute left-0 right-0 bottom-0 md:text-lg md:p-8">
+        <span class="text-pink-dark links-underline links-pink">Our office is closed now,
+          <a
+            href="mailto:info@spatie.be?subject=I%27d%20like%20to%20have%20a%20chat%21&body=Tell%20us%20how%20we%20can%20help%20you%3A%0A-%20Call%20you%20back%0A-%20Arrange%20a%20meeting%0A-%20%E2%80%A6%0A">email
+            us instead</a></span>
+      </p>
+    </div>
+  </div>
+
+  <script src="../../../assets/livewire/livewire.min.js" data-csrf="jYsHQEA2xIIaJABTeKF8XI6pfCJtYfB0PfWOPR1u"
+    data-update-uri="/livewire/update" data-navigate-once="true"></script>
+  <script src="../../../assets/npm/%40ryangjchandler/alpine-clipboard%402.x.x/dist/alpine-clipboard.js" defer=""></script>
+  <script>
+    document.addEventListener("alpine:init", () => {
+      Alpine.store("modals", {
+        openModals: [],
+        onConfirm: null,
+        init() {
+          if (window.location.hash) {
+            this.openModals.push(window.location.hash.replace("#", ""));
+          }
+        },
+        isOpen(id) {
+          return this.openModals.includes(id);
+        },
+        open(id) {
+          this.openModals.push(id);
+          window.location.hash = id;
+          Alpine.nextTick(() => {
+            const input = document.querySelector(
+              `#modal-${id} input:not([type=hidden])`
+            );
+            if (input) {
+              input.focus();
+              return;
+            }
+
+            const button = document.querySelector(
+              `#modal-${id} [data-confirm]`
+            );
+            if (button) button.focus();
+          });
+        },
+        close(id) {
+          this.openModals = this.openModals.filter((modal) => modal !== id);
+          history.pushState(
+            "",
+            document.title,
+            window.location.pathname + window.location.search
+          );
+        },
+      });
+
+      Alpine.data("compose", ({ text, defer = false } = {}) => {
+        // Store the editor as a non-reactive instance property
+        let editor;
+
+        return {
+          text,
+
+          init() {
+            if (!defer) {
+              this.load();
+            }
+          },
+
+          load() {
+            if (editor) {
+              return;
+            }
+
+            const textarea = this.$el.querySelector("textarea");
+
+            if (!textarea) {
+              return;
+            }
+
+            editor = new SimpleMDE({
+              element: textarea,
+              hideIcons: [
+                "heading",
+                "image",
+                "preview",
+                "side-by-side",
+                "fullscreen",
+                "guide",
+              ],
+              spellChecker: false,
+              status: false,
+            });
+
+            editor.codemirror.on("change", () => {
+              this.text = editor.value();
+            });
+          },
+
+          clear() {
+            editor.value("");
+          },
+        };
+      });
+    });
+  </script>
+  <script defer="" src="../../../assets/%40alpinejs/focus%403.10.5/dist/cdn.min.js"></script>
+
+  <script type="application/ld+json">
+      {
+        "@context": "https:\/\/schema.org",
+        "@type": "LocalBusiness",
+        "name": "Spatie",
+        "email": "info@spatie.be",
+        "telephone": "+32 3 292 56 79",
+        "vatID": "BE0809.387.596",
+        "url": ["https:\/\/spatie.be", "https:\/\/twitter.com\/spatie_be"],
+        "image": "https:\/\/spatie.be\/images\/og-image.jpg",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Antwerp",
+          "addressRegion": "Antwerp",
+          "postalCode": "2060",
+          "streetAddress": "Kruikstraat 22 bus 12",
+          "addressCountry": "Belgium"
+        },
+        "founders": [
+          {
+            "@type": "Person",
+            "name": "Freek Van der Herten",
+            "jobTitle": "Backend developer",
+            "url": ["https:\/\/freek.dev", "https:\/\/twitter.com\/freekmurze"]
+          },
+          {
+            "@type": "Person",
+            "name": "Jef Van der Voort",
+            "jobTitle": "Account manager",
+            "url": ["https:\/\/twitter.com\/vdv_jef"],
+            "email": "jef@spatie.be"
+          }
+        ],
+        "employees": [
+          {
+            "@type": "Person",
+            "name": "Alex Vanderbist",
+            "jobTitle": "Backend developer",
+            "url": [
+              "https:\/\/alexvanderbist.com",
+              "https:\/\/twitter.com\/alex_"
+            ]
+          },
+          {
+            "@type": "Person",
+            "name": "Sebastian De Deyne",
+            "jobTitle": "Full stack developer",
+            "url": [
+              "https:\/\/sebastiandedeyne.com",
+              "https:\/\/twitter.com\/sebdedeyne"
+            ]
+          },
+          {
+            "@type": "Person",
+            "name": "Wouter Brouwers",
+            "jobTitle": "Project Manager",
+            "url": ["https:\/\/twitter.com\/brouwerswouter"],
+            "email": "wouter@spatie.be"
+          },
+          {
+            "@type": "Person",
+            "name": "Ruben Van Assche",
+            "jobTitle": "Backend developer",
+            "url": [
+              "https:\/\/rubenvanassche.com",
+              "https:\/\/twitter.com\/rubenvanassche"
+            ]
+          },
+          {
+            "@type": "Person",
+            "name": "Rias Van der Veken",
+            "jobTitle": "Backend developer",
+            "url": ["https:\/\/rias.be", "https:\/\/twitter.com\/riasvdv"]
+          },
+          {
+            "@type": "Person",
+            "name": "Niels Vanpachtenbeke",
+            "jobTitle": "Backend developer",
+            "url": [
+              "https:\/\/vanpachtenbeke.com",
+              "https:\/\/twitter.com\/NielsVanpach"
+            ]
+          },
+          {
+            "@type": "Person",
+            "name": "Tim Van Dijck",
+            "jobTitle": "Full stack developer",
+            "url": [
+              "https:\/\/timvandijck.be",
+              "https:\/\/twitter.com\/timvandijck"
+            ]
+          },
+          {
+            "@type": "Person",
+            "name": "Jimi Robaer",
+            "jobTitle": "Designer",
+            "url": ["https:\/\/twitter.com\/jimirobaer"]
+          },
+          {
+            "@type": "Person",
+            "name": "Sébastien Heneau",
+            "jobTitle": "Frontend developer",
+            "url": ["https:\/\/sebastienhenau.com"]
+          }
+        ]
+      }
+    </script>
+
+</body>
+</html>
